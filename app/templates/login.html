@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+  <label>Username <input name="username" required></label>
+  <label>Password <input name="password" type="password" required></label>
+  <button type="submit">Login</button>
+</form>
+<p class="muted">Demo: use any of the seeded users, e.g. <code>user1 / pass1</code>.</p>
+{% endblock %}

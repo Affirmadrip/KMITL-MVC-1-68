@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ project.name }}</h2>
+<p class="muted">{{ project.category }} • ID {{ project.project_id }} • Deadline {{ project.deadline }}</p>
+<p>{{ project.description }}</p>
+
+<div class="bar lg"><span style="width: {{ project.progress_pct() }}%"></span></div>
+<p><b>Raised:</b> ฿{{ project.current_amount }} / ฿{{ project.goal }}</p>
+
+<h3>Reward tiers</h3>
+<ul>
+  {% for t in tiers %}
+  <li>
+    <b>{{ t.name }}</b> — min ฿{{ t.minimum_fund }} — remaining {{ t.quota_remaining }}
+  </li>
+  {% endfor %}
+</ul>
+
+{% if session.get('user_id') %}
+<h3>Pledge</h3>
+<form method="post" action="{{ url_for('proj.pledge', pid=project.project_id) }}">
+  <label>Amount (฿): <input name="amount" type="number" min="1" required></label>
+  <label>Reward:
+    <select name="tier_id">
+      <option value="">None</option>
+      {% for t in tiers %}
+        <option value="{{ t.id }}">{{ t.name }} (min ฿{{ t.minimum_fund }})</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="submit">Support</button>
+</form>
+{% else %}
+<p><a href="{{ url_for('auth.login') }}">Login</a> to pledge.</p>
+{% endif %}
+
+{% if project.is_success() %}<p class="badge ok">Project succeeded</p>{% elif project.is_failed() %}<p class="badge fail">Project failed</p>{% endif %}
+
+<p class="muted">Rejections recorded: {{ project.rejection_count }}</p>
+{% endblock %}

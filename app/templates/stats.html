@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Statistics</h2>
+<p><b>Successful fundings:</b> {{ success }}</p>
+<p><b>Failed fundings:</b> {{ failed }}</p>
+
+<table>
+  <tr><th>Project</th><th>Raised</th><th>Goal</th><th>Deadline</th><th>Status</th></tr>
+  {% for p in projects %}
+  <tr>
+    <td>{{ p.name }}</td>
+    <td>฿{{ p.current_amount }}</td>
+    <td>฿{{ p.goal }}</td>
+    <td>{{ p.deadline }}</td>
+    <td>
+      {% if p.is_success() %}Success{% elif p.is_failed() %}Failed{% else %}Ongoing{% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,21 @@
+body { font-family: system-ui, Arial; margin: 24px; background:#fafafa; }
+header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+header a { margin-right:12px; }
+.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:12px; }
+.card { background:white; padding:14px; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,.06); text-decoration:none; color:inherit; position:relative;}
+.muted { color:#666; font-size: 0.9rem; }
+.bar { background:#eee; height:8px; border-radius:6px; overflow:hidden; margin:6px 0 4px; }
+.bar.lg { height:14px; }
+.bar span { display:block; height:100%; background:#4caf50; }
+.badge { position:absolute; top:10px; right:10px; padding:2px 8px; border-radius:12px; font-size:12px; }
+.badge.ok { background:#e6f6ea; color:#256029; }
+.badge.fail { background:#fdecea; color:#8a1c1c; }
+.flash > div { margin:8px 0; padding:8px 10px; border-radius:6px; }
+.flash-success{ background:#e6f6ea; color:#256029; }
+.flash-danger{ background:#fdecea; color:#8a1c1c; }
+.flash-warning{ background:#fff7e6; color:#7a5500; }
+.filters input, .filters select { margin-right:8px; }
+table { width:100%; background:white; border-radius:8px; padding:8px; border-collapse:collapse; }
+th, td { padding:8px; border-bottom:1px solid #eee; text-align:left; }
+form label { display:block; margin:8px 0; }
+button { padding:8px 12px; border:0; border-radius:8px; background:black; color:white; cursor:pointer; }

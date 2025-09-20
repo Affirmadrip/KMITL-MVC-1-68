@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment (Windows venv folder)
+venv/
+
+# SQLite database file
+crowdfund.db
+
+# VS Code settings
+.vscode/
+
+# Windows system files
+Thumbs.db
+Desktop.ini

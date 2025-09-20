@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Crowdfund MVC</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <h1><a href="{{ url_for('proj.project_list') }}">Crowdfund MVC</a></h1>
+  <nav>
+    <a href="{{ url_for('proj.project_list') }}">Projects</a>
+    <a href="{{ url_for('proj.stats') }}">Statistics</a>
+    {% if session.get('username') %}
+      <span>Hi, {{ session['username'] }}!</span>
+      <a href="{{ url_for('auth.logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+<main>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash">
+        {% for cat, msg in messages %}<div class="flash-{{cat}}">{{ msg }}</div>{% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>
