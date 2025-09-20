@@ -2,7 +2,7 @@
 
 1. python -m venv venv
 2. venv\Scripts\activate
-3. pip install -r requirements.txt
+3. pip install -r requirement.txt
 4. python seed_data.py
 5. python run.py
 6. เปิด http://127.0.0.1:5000/ ใน Browser
