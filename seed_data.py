@@ -7,7 +7,6 @@ app = create_app()
 with app.app_context():
     db.drop_all(); db.create_all()
 
-    # 10 users
     users = []
     for i in range(1, 11):
         u = User(username=f"user{i}", password=f"pass{i}")
@@ -20,7 +19,7 @@ with app.app_context():
             name=f"Project {i}",
             category=choice(categories),
             goal=randint(50_000, 200_000),
-            # mix of future & past deadlines for success/failed stats
+
             deadline=(date.today() + timedelta(days=randint(-7, 30))),
             description="Sample project for crowdfunding assignment.",
             current_amount=0
@@ -28,7 +27,6 @@ with app.app_context():
         db.session.add(p); projects.append(p)
     db.session.commit()
 
-    # Reward tiers (2–3 each)
     for p in projects:
         base = randint(500, 2000)
         for j in range(2, choice([3,3,2])+1):
@@ -39,7 +37,6 @@ with app.app_context():
             db.session.add(t)
     db.session.commit()
 
-    # Create pledges (some below min or after deadline to cause rejections counter)
     for _ in range(60):
         u = choice(users)
         p = choice(projects)
@@ -47,7 +44,6 @@ with app.app_context():
         pick_tier = choice([None] + tiers)
         amount = randint(200, 5000)
 
-        # decide: valid or invalid case
         valid = True
         if p.deadline <= date.today():
             p.rejection_count += 1; valid = False

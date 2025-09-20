@@ -10,7 +10,7 @@ proj_bp = Blueprint("proj", __name__)
 def project_list():
     q = request.args.get("q", "").strip()
     category = request.args.get("category", "")
-    sort = request.args.get("sort", "newest")  # newest | ending | mostfunded
+    sort = request.args.get("sort", "newest")  
 
     qry = Project.query
     if q:
@@ -23,7 +23,7 @@ def project_list():
     elif sort == "mostfunded":
         qry = qry.order_by(desc(Project.current_amount))
     else:
-        qry = qry.order_by(desc(Project.project_id))  # proxy for newest
+        qry = qry.order_by(desc(Project.project_id)) 
 
     projects = qry.all()
     categories = [c[0] for c in db.session.query(Project.category).distinct().all()]
@@ -35,7 +35,6 @@ def project_detail(pid):
     tiers = RewardTier.query.filter_by(project_id=pid).order_by(RewardTier.minimum_fund.asc()).all()
     return render_template("detail.html", project=project, tiers=tiers)
 
-# BUSINESS RULES CHECK + pledge
 @proj_bp.route("/project/<int:pid>/pledge", methods=["POST"])
 def pledge(pid):
     project = Project.query.get_or_404(pid)
@@ -47,28 +46,24 @@ def pledge(pid):
     tier_id = request.form.get("tier_id", "")
     tier = RewardTier.query.get(int(tier_id)) if tier_id else None
 
-    # 4.1 Ending date must be in future
     if project.deadline <= date.today():
         project.rejection_count += 1
         db.session.commit()
         flash("Pledge rejected: project deadline has passed.", "danger")
         return redirect(url_for("proj.project_detail", pid=pid))
 
-    # 4.2 MoneyAmount >= Minimum fund (if tier chosen)
     if tier and amount < tier.minimum_fund:
         project.rejection_count += 1
         db.session.commit()
         flash("Pledge rejected: amount is below selected reward tier minimum.", "danger")
         return redirect(url_for("proj.project_detail", pid=pid))
 
-    # 4.3 reward quota
     if tier and tier.quota_remaining <= 0:
         project.rejection_count += 1
         db.session.commit()
         flash("Pledge rejected: reward tier is out of stock.", "danger")
         return redirect(url_for("proj.project_detail", pid=pid))
 
-    # Accept pledge
     pledge = Pledge(user_id=session["user_id"], project_id=pid, amount=amount, reward_tier_id=(tier.id if tier else None), success=True)
     project.current_amount += amount
     if tier:

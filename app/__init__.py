@@ -13,16 +13,13 @@ def create_app():
 
     db.init_app(app)
 
-    # Import models so tables are known
-    from models import User, Project, RewardTier, Pledge  # noqa
+    from models import User, Project, RewardTier, Pledge  
 
-    # Blueprints (Controllers)
     from controllers.auth import auth_bp
     from controllers.projects import proj_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(proj_bp)
 
-    # CLI shortcut: flask init-db
     @app.cli.command("init-db")
     def init_db():
         with app.app_context():
@@ -38,9 +35,9 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    # Ensure DB exists on first run
+
     with app.app_context():
-        from models import User, Project, RewardTier, Pledge  # noqa
+        from models import User, Project, RewardTier, Pledge  
         if not os.path.exists("crowdfund.db"):
             db.create_all()
     app.run(debug=True)
