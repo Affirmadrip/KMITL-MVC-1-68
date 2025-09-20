@@ -33,7 +33,9 @@ def project_list():
 def project_detail(pid):
     project = Project.query.get_or_404(pid)
     tiers = RewardTier.query.filter_by(project_id=pid).order_by(RewardTier.minimum_fund.asc()).all()
-    return render_template("detail.html", project=project, tiers=tiers)
+    pledges = Pledge.query.filter_by(project_id=pid).all()   # NEW
+    return render_template("detail.html", project=project, tiers=tiers, pledges=pledges)
+
 
 @proj_bp.route("/project/<int:pid>/pledge", methods=["POST"])
 def pledge(pid):

@@ -37,4 +37,14 @@
 {% if project.is_success() %}<p class="badge ok">Project succeeded</p>{% elif project.is_failed() %}<p class="badge fail">Project failed</p>{% endif %}
 
 <p class="muted">Rejections recorded: {{ project.rejection_count }}</p>
+
+<h3>Supporters</h3>
+<ul>
+  {% for pledge in pledges %}
+    <li>{{ pledge.user.username }} pledged ฿{{ pledge.amount }}</li>
+  {% else %}
+    <li>No supporters yet.</li>
+  {% endfor %}
+</ul>
+
 {% endblock %}
