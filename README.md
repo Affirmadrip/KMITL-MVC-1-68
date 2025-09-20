@@ -22,16 +22,19 @@
 **Routes/Actions ที่สำคัญ**
 
 1. Authentication
+   
 	1.1.) GET /login: แสดงหน้า Login
 	1.2.) POST /login: Auth ตัว User (user/pass)
 	1.3.) GET /logout: ปิด Session และ Log out
 
 2. โครงการ
+   
 	2.1.) GET /: หน้ารวมโครงการ รองรับการค้นหา กรองตามหมวดหมู่ และการเรียงลำดับ
 	2.2.) GET /project/<project_id>: รายละเอียดโครงการ เป้าหมาย ความคืบหน้า ระดับรางวัล
 	2.3.) POST /project/<project_id>/pledge: สร้าง Pledge รองรับ Business rules และถ้า Success จะ Update ยอดเงิน ลดจำนวนโควตา ถ้า Failure จะเพิ่ม rejection_count
 
 3. สถิติ
+   
 	3.1.) GET /stats: หน้าสถิติ แสดงจำนวนโครงการที่สำเร็จ จำนวนโครงการที่ไม่สำเร็จ และตารางแสดงสถานะของทุกโครงการ
 
 **วิธี Run**
