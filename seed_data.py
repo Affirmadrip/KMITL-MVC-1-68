@@ -21,7 +21,7 @@ with app.app_context():
             goal=randint(50_000, 200_000),
 
             deadline=(date.today() + timedelta(days=randint(-7, 30))),
-            description="Sample project for crowdfunding assignment.",
+            description=f"This is {p.name}, a crowdfunding project in {p.category}.",
             current_amount=0
         )
         db.session.add(p); projects.append(p)
