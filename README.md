@@ -1,3 +1,12 @@
+**วิธี Run**
+
+1. python -m venv venv
+2. venv\Scripts\activate
+3. pip install -r requirements.txt
+4. python seed_data.py
+5. python run.py
+6. เปิด http://127.0.0.1:5000/ ใน Browser
+
 **MVC Mapping**
 
 1. Model (Data และ Business Rules)
@@ -46,13 +55,3 @@
 5. สถิติ
    
 	3.1.) GET /stats: หน้าสถิติ แสดงจำนวนโครงการที่สำเร็จ จำนวนโครงการที่ไม่สำเร็จ และตารางแสดงสถานะของทุกโครงการ
-
-**วิธี Run**
-
-1. python -m venv venv
-2. venv\Scripts\activate
-3. pip install -r requirements.txt
-4. python seed_data.py
-5. python run.py
-6. เปิด http://127.0.0.1:5000/ ใน Browser
-
